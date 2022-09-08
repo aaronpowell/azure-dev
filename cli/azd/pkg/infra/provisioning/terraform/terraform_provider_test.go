@@ -259,7 +259,7 @@ func prepareDeployMocks(commandRunner *execmock.MockCommandRunner) {
 		Stderr: "",
 	})
 
-	output := fmt.Sprintf("{\"AZURE_LOCATION\": {\"sensitive\": false,\"type\": \"string\",\"value\": \"westus2\"},\"RG_NAME\":{\"sensitive\": false,\"type\": \"string\",\"value\": \"rg-test-env\"}}")
+	output := "{\"AZURE_LOCATION\": {\"sensitive\": false,\"type\": \"string\",\"value\": \"westus2\"},\"RG_NAME\":{\"sensitive\": false,\"type\": \"string\",\"value\": \"rg-test-env\"}}"
 	commandRunner.When(func(args exec.RunArgs, command string) bool {
 		return strings.Contains(command, fmt.Sprintf("terraform -chdir=%s output", modulePath))
 	}).Respond(exec.RunResult{
@@ -278,7 +278,7 @@ func prepareDestroyMocks(commandRunner *execmock.MockCommandRunner) {
 		Stderr: "",
 	})
 
-	output := fmt.Sprintf("{\"AZURE_LOCATION\": {\"sensitive\": false,\"type\": \"string\",\"value\": \"westus2\"},\"RG_NAME\":{\"sensitive\": false,\"type\": \"string\",\"value\": \"rg-test-env\"}}")
+	output := "{\"AZURE_LOCATION\": {\"sensitive\": false,\"type\": \"string\",\"value\": \"westus2\"},\"RG_NAME\":{\"sensitive\": false,\"type\": \"string\",\"value\": \"rg-test-env\"}}"
 	commandRunner.When(func(args exec.RunArgs, command string) bool {
 		return strings.Contains(command, fmt.Sprintf("terraform -chdir=%s output", modulePath))
 	}).Respond(exec.RunResult{
