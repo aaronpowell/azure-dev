@@ -91,6 +91,9 @@ type Resource struct {
 
 	// An object that captures properties that control the building of a container image.
 	Build *ContainerV1Build `json:"build,omitempty"`
+
+	// For project.v0 resources, this is additional info about hosting
+	Hosting map[string]string `json:"hosting,omitempty"`
 }
 
 type ContainerV1Build struct {

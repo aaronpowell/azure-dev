@@ -118,6 +118,19 @@ func ProjectPaths(manifest *Manifest) map[string]string {
 	return res
 }
 
+func ProjectHosting(manifest *Manifest, projectName string) (map[string]string) {
+	for name, comp := range manifest.Resources {
+		if name == projectName {
+			if comp.Hosting == nil {
+				return nil
+			}
+			return comp.Hosting
+		}
+	}
+
+	return nil
+}
+
 // Dockerfiles returns information about all dockerfile.v0 resources from a manifest.
 func Dockerfiles(manifest *Manifest) map[string]genDockerfile {
 	res := make(map[string]genDockerfile)

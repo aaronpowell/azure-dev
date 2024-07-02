@@ -185,11 +185,23 @@ func (ai *DotNetImporter) Services(
 			return nil, err
 		}
 
-		// TODO(ellismg): Some of this code is duplicated from project.Parse, we should centralize this logic long term.
-		svc := &ServiceConfig{
-			RelativePath: relPath,
-			Language:     ServiceLanguageDotNet,
-			Host:         DotNetContainerAppTarget,
+		hosting := apphost.ProjectHosting(manifest, name)
+
+		var svc *ServiceConfig
+
+		if hosting != nil && hosting["azure"] == "appservice" {
+			svc = &ServiceConfig{
+				RelativePath: relPath,
+				Language:     ServiceLanguageDotNet,
+				Host:         AppServiceTarget,
+			}
+		} else {
+			// TODO(ellismg): Some of this code is duplicated from project.Parse, we should centralize this logic long term.
+			svc = &ServiceConfig{
+				RelativePath: relPath,
+				Language:     ServiceLanguageDotNet,
+				Host:         DotNetContainerAppTarget,
+			}
 		}
 
 		svc.Name = name
